@@ -6,7 +6,7 @@
 static void CustomArguments(benchmark::internal::Benchmark *b)
 {
     std::vector<long> rows{10'000, 10'000'000};
-    std::vector<long> cols{3, 5};
+    std::vector<long> cols{3};
     for (auto r : rows)
         for (auto c : cols)
             b->Args({r, c});
@@ -17,7 +17,7 @@ static void allocate_data(benchmark::State &state)
 {
     for (auto _ : state)
     {
-        Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> vec(state.range(0), state.range(1));
+        Eigen::Array<T, Eigen::Dynamic, 3, Eigen::RowMajor> vec(state.range(0), state.range(1));
         vec.setZero();
         benchmark::DoNotOptimize(vec);
     }
@@ -26,7 +26,7 @@ static void allocate_data(benchmark::State &state)
 template <typename T>
 static void loop_and_assign(benchmark::State &state)
 {
-    Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> vec(state.range(0), state.range(1));
+    Eigen::Array<T, Eigen::Dynamic, 3, Eigen::RowMajor> vec(state.range(0), state.range(1));
     for (auto _ : state)
     {
         for (Eigen::Index i = 0; i < vec.rows(); i++)
