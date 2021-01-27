@@ -35,11 +35,11 @@ static void loop_and_assign(benchmark::State &state)
 }
 
 BENCHMARK_TEMPLATE(allocate_data, double)->Apply(CustomArguments);
-BENCHMARK_TEMPLATE(allocate_data, std::complex<double>)->Apply(CustomArguments);
-BENCHMARK_TEMPLATE(allocate_data, std::int64_t)->Apply(CustomArguments);
+// BENCHMARK_TEMPLATE(allocate_data, std::complex<double>)->Apply(CustomArguments);
+// BENCHMARK_TEMPLATE(allocate_data, std::int64_t)->Apply(CustomArguments);
 
 BENCHMARK_TEMPLATE(loop_and_assign, double)->Apply(CustomArguments);
-BENCHMARK_TEMPLATE(loop_and_assign, std::complex<double>)->Apply(CustomArguments);
-BENCHMARK_TEMPLATE(loop_and_assign, std::int64_t)->Apply(CustomArguments);
+// BENCHMARK_TEMPLATE(loop_and_assign, std::complex<double>)->Apply(CustomArguments);
+// BENCHMARK_TEMPLATE(loop_and_assign, std::int64_t)->Apply(CustomArguments);
 
 BENCHMARK_MAIN();
