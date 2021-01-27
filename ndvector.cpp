@@ -4,7 +4,7 @@
 
 static void CustomArguments(benchmark::internal::Benchmark *b)
 {
-    std::vector<long> rows{10'000'000, 100'000'000};
+    std::vector<long> rows{100'000, 10'000'000, 100'000'000};
     std::vector<long> cols{3};
     for (auto r : rows)
         for (auto c : cols)
@@ -29,7 +29,7 @@ static void loop_and_assign(benchmark::State &state)
     {
         for (std::size_t i = 0; i < vec.rows(); i++)
             for (std::size_t j = 0; j < vec.cols(); j++)
-                vec(i, j) = i + j;
+                vec(i, j) = std::sqrt(i + j);
         benchmark::DoNotOptimize(vec);
     }
 }
