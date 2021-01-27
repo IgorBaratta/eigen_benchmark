@@ -1,3 +1,4 @@
+#define EIGEN_NO_DEBUG
 #include <complex>
 #include <benchmark/benchmark.h>
 #include <Eigen/Core>
@@ -18,17 +19,21 @@ static void allocate_data(benchmark::State &state)
     {
         Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> vec(state.range(0), state.range(1));
         vec.setZero();
+        benchmark::DoNotOptimize(vec);
     }
 }
 
 template <typename T>
 static void loop_and_assign(benchmark::State &state)
 {
-     Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> vec(state.range(0), state.range(1));
+    Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> vec(state.range(0), state.range(1));
     for (auto _ : state)
+    {
         for (Eigen::Index i = 0; i < vec.rows(); i++)
             for (Eigen::Index j = 0; j < vec.cols(); j++)
                 vec(i, j) = i + j;
+        benchmark::DoNotOptimize(vec);
+    }
 }
 
 BENCHMARK_TEMPLATE(allocate_data, double)->Apply(CustomArguments);

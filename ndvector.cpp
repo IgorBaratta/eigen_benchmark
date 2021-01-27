@@ -15,7 +15,10 @@ template <typename T>
 static void allocate_data(benchmark::State &state)
 {
     for (auto _ : state)
+    {
         ndVector<T> vec(state.range(0), state.range(1));
+        benchmark::DoNotOptimize(vec);
+    }
 }
 
 template <typename T>
@@ -23,9 +26,12 @@ static void loop_and_assign(benchmark::State &state)
 {
     ndVector<T> vec(state.range(0), state.range(1));
     for (auto _ : state)
+    {
         for (std::size_t i = 0; i < vec.rows(); i++)
             for (std::size_t j = 0; j < vec.cols(); j++)
                 vec(i, j) = i + j;
+        benchmark::DoNotOptimize(vec);
+    }
 }
 
 BENCHMARK_TEMPLATE(allocate_data, double)->Apply(CustomArguments);
