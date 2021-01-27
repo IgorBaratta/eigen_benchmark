@@ -31,3 +31,5 @@ target_link_libraries(ndvector PRIVATE benchmark::benchmark)
 
 add_executable(eigen eigen.cpp)
 target_link_libraries(eigen PRIVATE benchmark::benchmark)
+
+message(STATUS ${CMAKE_CXX_FLAGS})
